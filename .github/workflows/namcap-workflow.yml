@@ -3,9 +3,11 @@ name: Check PKGBUILDs
 on: [push, pull_request]
 
 jobs:
-  build:
+  test:
 
     runs-on: ubuntu-latest
+    container:
+      image: archlinux
 
     steps:
     - uses: actions/checkout@v2
@@ -15,13 +17,12 @@ jobs:
         python-version: 3.9
     - name: Install namcap
       run: |
-        sudo apt-get install -y pkg-config
         git clone https://github.com/angelofallars/namcap.git
 
         python -m pip install --upgrade pip
 
-        sudo python -m pip install -r namcap/requirements.txt 
-        sudo python namcap/setup.py install
+        python -m pip install -r namcap/requirements.txt 
+        python namcap/setup.py install
 
     - name: Check PKGBUILDs with namcap
       run: |
