@@ -19,7 +19,7 @@ jobs:
         python-version: 3.9
 
     - name: Install packages
-      run: pacman -Syu python git --noconfirm --needed
+      run: pacman -Syu python git libffi --noconfirm --needed
 
     - name: Install namcap
       run: |
