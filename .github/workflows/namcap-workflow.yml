@@ -10,18 +10,24 @@ jobs:
       image: archlinux
 
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout
+      uses: actions/checkout@v2
+
     - name: Set up Python 3.9
       uses: actions/setup-python@v2
       with:
         python-version: 3.9
+
+    - name: Install packages
+      run: pacman -Syu python git --noconfirm --needed
+
     - name: Install namcap
       run: |
         git clone https://github.com/angelofallars/namcap.git
 
         python -m pip install --upgrade pip
 
-        python -m pip install -r namcap/requirements.txt 
+        python -m pip install -r namcap/requirements.txt
         python namcap/setup.py install
 
     - name: Check PKGBUILDs with namcap
