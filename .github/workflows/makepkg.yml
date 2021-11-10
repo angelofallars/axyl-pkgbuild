@@ -14,11 +14,18 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Install packages
-      run: pacman -Syu python python-pip git base-devel --noconfirm --needed
+      run: pacman -Syu python python-pip git sudo base-devel --noconfirm --needed
 
     - name: Install walk-dir
       run: git clone https://github.com/angelofallars/walk-dir.git
+
+    - name: Set-up directories and permissions for running makepkg
+      run: |
+        mkdir /home/build
+        chgrp nobody /home/build
+        chmod g+ws /home/build
+        setfacl -m u::rwx,g::rwx /home/build
+        setfacl -d --set u::rwx,g::rwx,o::- /home/build
     
     - name: Build PKGBUILDs with makepkg
       run: python walk-dir/main.py
-
