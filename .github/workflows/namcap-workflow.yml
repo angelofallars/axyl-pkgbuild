@@ -13,15 +13,10 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
-    - name: Set up Python 3.9
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.9
-
     - name: Install packages
       run: |
         pacman -Syu --noconfirm
-        pacman -S git --noconfirm --needed
+        pacman -S python git --noconfirm --needed
 
     - name: Install namcap
       run: |
