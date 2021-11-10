@@ -17,14 +17,16 @@ jobs:
       run: |
         pacman -Syu python python-pip git base-devel --noconfirm --needed
 
-    - name: Install namcap
+    - name: Prepare namcap
       run: |
         git clone https://github.com/angelofallars/namcap.git
 
         pip install --upgrade pip
         pip install -r namcap/requirements.txt
 
-        python namcap/setup.py install
+    - name: Install namcap
+      working-directory: namcap
+      run: python setup.py install
 
     - name: Check PKGBUILDs with namcap
       run: |
