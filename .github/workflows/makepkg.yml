@@ -1,0 +1,24 @@
+name: Build PKGBUILDs with makepkg
+
+on: [push, pull_request]
+
+jobs:
+  makepkg:
+
+    runs-on: ubuntu-latest
+    container:
+      image: archlinux
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Install packages
+      run: pacman -Syu python python-pip git base-devel --noconfirm --needed
+
+    - name: Install walk-dir
+      run: git clone https://github.com/angelofallars/walk-dir.git
+    
+    - name: Build PKGBUILDs with makepkg
+      run: python walk-dir/main.py
+
