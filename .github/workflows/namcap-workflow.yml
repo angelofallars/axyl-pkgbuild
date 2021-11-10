@@ -15,8 +15,7 @@ jobs:
 
     - name: Install packages
       run: |
-        pacman -Syu --noconfirm
-        pacman -S python python-pip git --noconfirm --needed
+        pacman -Syu python python-pip git base-devel --noconfirm --needed
 
     - name: Install namcap
       run: |
